@@ -1,0 +1,25 @@
+:root{
+    --black: black;
+    --primary: rgb(221, 221, 221);
+    --secondary: #9e0064;
+    --success: rgb(89, 255, 0);
+    --warning: yellow;
+    --danger: red;
+}
+
+.bg-black{
+    background: var(--black)
+}
+
+
+.page-content{
+    background: var(--black)
+}
+
+.txt-primary{
+    color: var(--primary)
+}
+
+.justify-content.center{
+    justify-content: center;
+}

@@ -11,6 +11,7 @@
     <title>EVA</title>
     <!-- Path to Framework7 Library Bundle CSS -->
     <link rel="stylesheet" href="/www/css/framework7-bundle.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css">
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/index.css">
   </head>
@@ -20,30 +21,35 @@
 
       <!-- Your main view, should have "view-main" class -->
       <div class="view view-main">
+        
         <!-- Initial Page, "data-name" contains page name -->
         <div data-name="home" class="page">
 
-          <!-- Top Navbar -->
-          <div class="navbar">
-            <div class="navbar-bg bg-black"></div>
-            <div class="navbar-inner justify-content-center">
-              <div class="title txt-primary">Awesome App</div>
+           <!-- Top Navbar -->
+           <div class="navbar">
+            <div class="navbar-bg bg-black justify-content-center"></div>
+            <div class="navbar-inner ">
+                <div class="title txt-primary ">EVA</div>
             </div>
-          </div>
+        </div>
 
-          <div class="fab fab-extended fab-center-bottom">
-            <a>
-              <i class="icon f7-icons if-not-md">plus</i>
-              <i class="icon material-icons md-only">add</i>
-              <div class="fab-text">Create</div>
-            </a>
-          </div>
+          
+          <!-- Additional fab-extended class -->
+          <div class="fab fab-extended fab-center-bottom ">
+            <a href="#" class="btn-primary-outline">
+          <i class="mdi mdi-microphone"></i>
+          <!-- Element with FAB text  -->
+          <div class="fab-text">Create</div>
+        </a>
+      </div>
 
           <!-- Scrollable page content -->
           <div class="page-content  txt-primary text-align-center">
+            <a href="/memorias/" class="link">
             <img style="max-width: 350px;" src="/www/img/giphy.gif" alt="" srcset="">
+          </a>
             <div class="block txt-primary">
-              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Delectus corrupti unde ea natus nesciunt sit eum aperiam mollitia beatae animi eveniet temporibus officia consectetur nam molestiae iusto rerum, perferendis id.</p>
+              <p id="resposta"></p>
             </div>
           </div>
         </div>
@@ -51,7 +57,24 @@
     </div>
     <!-- Path to Framework7 Library Bundle JS-->
     <script type="text/javascript" src="/www/js/lib/framework7-bundle.js"></script>
+    <!-- typedjs-->
+    <script type="text/javascript" src="/www/js/lib/typed.umd.js"></script>
     <!-- Path to your app js-->
     <script type="text/javascript" src="js/router.js"></script>
+    <script>
+      var typed = new Typed('#resposta', {
+          strings: ['Isso é um teste de texto ^1000', ''],
+          typeSpeed: 40,
+          showCursor: false,
+          onComplete: function (self) {
+              toastBottom = app.toast.create({
+                  text: 'Fala concluída com sucesso!',
+                  closeTimeout: 2000,
+              });
+              toastBottom.open();
+          }
+
+      });
+  </script>
   </body>
 </html>

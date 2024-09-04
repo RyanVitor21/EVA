@@ -12,13 +12,34 @@ var app = new Framework7({
     // Add default routes
     routes: [
       {
-        path: '/about/',
-        url: 'about.html',
+        path: '/index/',
+        url: 'index.html',
+        on: {
+            pageInit: function (e, page) {
+                           
+            },
+        }
       },
       {
         path: '/memorias/',
         url: 'memorias.html',
+        on: {
+            pageInit: function (e, page) {
+                var searchbar = app.searchbar.create({
+                    el: '.searchbar',
+                    searchContainer: '.list',
+                    searchIn: '.item-title',
+                    on: {
+                      search(sb, query, previousQuery) {
+                        console.log(query, previousQuery);
+                      }
+                    }
+                  });         
+            },
+        }        
       },
     ],
     // ... other parameters
   });
+  
+  var mainView = app.views.create('.view-main');

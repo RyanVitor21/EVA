@@ -49,20 +49,20 @@
 }
 
 .border-bottom-primary{
-    border-bottom: 1px solid var(--primary) !important;
+    border-bottom: 1px solid var(--secondary) !important;
 }
 
 .input-custom{
     background: var(--black)!important;
-    color: var(--primary) !important;
+    color: var(--secondary) !important;
 }
 
 .input-custom::placeholder{   
-    color: var(--primary) !important;
+    color: var(--secondary) !important;
 }
 
 a.txt-primary{
-    color: var(--primary) !important;
+    color: var(--secondary) !important;
 }
 
 li{
@@ -71,4 +71,20 @@ li{
 
 .fw-bold{
     font-weight: bold !important;
+    
+}
+
+.item-title.item-label.txt-primary {
+    color: var(--secondary) !important;
+}
+
+
+/* Especifique estilos para garantir a cor correta */
+.item-title.item-label.txt-primary,
+.item-title.txt-primary {
+    color: var(--secondary) !important;
+}
+
+.item-subtitle.txt-primary {
+    color: var(--secondary) !important;
 }

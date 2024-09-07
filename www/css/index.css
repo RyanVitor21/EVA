@@ -79,12 +79,5 @@ li{
 }
 
 
-/* Especifique estilos para garantir a cor correta */
-.item-title.item-label.txt-primary,
-.item-title.txt-primary {
-    color: var(--secondary) !important;
-}
 
-.item-subtitle.txt-primary {
-    color: var(--secondary) !important;
-}
+

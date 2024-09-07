@@ -1,0 +1,18 @@
+{
+  "cordova-plugin-speechrecognition": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-speechrecognition"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-texttospeech": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-texttospeech"
+    },
+    "is_top_level": true,
+    "variables": {}
+  }
+}

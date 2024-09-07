@@ -1,4 +1,4 @@
-document.addEventListener('deviceready', onDeviceReady, false);
+//document.addEventListener('deviceready', onDeviceReady, false);
 
 var app = new Framework7({
     // App root element
@@ -44,4 +44,4 @@ var app = new Framework7({
     // ... other parameters
   });
   
-  var mainView = app.views.create('.view-main',{url:'/index.html/'});
+  var mainView = app.views.create('.view-main',{url:'/index/'});

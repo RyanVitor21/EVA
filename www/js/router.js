@@ -18,6 +18,7 @@ var app = new Framework7({
         url: 'index.html',
         on: {
             pageInit: function (e, page) {
+              $.getscript('js/index.js')
                            
             },
         }
@@ -27,16 +28,8 @@ var app = new Framework7({
         url: 'memorias.html',
         on: {
             pageInit: function (e, page) {
-                var searchbar = app.searchbar.create({
-                    el: '.searchbar',
-                    searchContainer: '.list',
-                    searchIn: '.item-title',
-                    on: {
-                      search(sb, query, previousQuery) {
-                        console.log(query, previousQuery);
-                      }
-                    }
-                  });         
+              $.getscript('js/memorias.js')
+       
             },
         }        
       },

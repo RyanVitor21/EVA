@@ -1,116 +1,93 @@
-//ASSIM QUE A ROTA INDEX COMEÇAR
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar (Android only) -->
+    <meta name="theme-color" content="#2196f3">
+    <!-- Your app title -->
+    <title>EVA</title>
+     <!-- App icon -->
+     <link rel="icon" href="/www/img/logo.png" sizes="any"> <!-- Para todos os tamanhos -->
+     <link rel="icon" href="/www/img/logo.png" type="image/svg+xml"> <!-- Para SVG -->
+     <link rel="apple-touch-icon" href="/www/img/logo.png"> <!-- Para dispositivos Apple -->
+     
+    <!-- Path to Framework7 Library Bundle CSS -->
+    <link rel="stylesheet" href="/www/css/framework7-bundle.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/index.css">
+  </head>
+  <body>
+    <!-- App root element -->
+    <div id="app">
 
-//IMPORTAR COMANDOS
-$.getScript('js/comandos.js');      
+      <!-- Your main view, should have "view-main" class -->
+      <div class="view view-main">
+        
+        <!-- Initial Page, "data-name" contains page name -->
+        <div data-name="home" class="page">
 
-//VERIFICAR SE TEM O BANCO NO LOCALSTORAGE
-if(localStorage.getItem('banco')!==null && localStorage.getItem('banco')!==""){
-    banco = JSON.parse(localStorage.getItem('banco'));
-    temBanco = true;
-}else{
-    console.log('Não tem um banco de dados ainda!');
-    temBanco = false;
-}
-//VERIFICAR SE TEM PERMISSAO DE USAR SPEECHRECOGNITION
-window.plugins.speechRecognition.hasPermission(
-    function(permissao){
-        //SE NÃO TIVER PERMISSAO
-        if(!permissao){
-            //SOLICITAR A PERMISSÃO
-            window.plugins.speechRecognition.requestPermission(
-                function (temPermissao){
-                    app.dialog.alert('Permissão concedida: '+temPermissao);
-                }, function(erro){
-                    app.dialog.alert('Request Permission error: '+erro);
-                })
+           <!-- Top Navbar -->
+           <div class="navbar">
+            <div class="navbar-bg bg-black justify-content-center"></div>
+            <div class="navbar-inner ">
+                <div class="title txt-primary ">EVA</div>
+            </div>
+        </div>
 
-        }
-    },function(error){
-        app.dialog.alert('hasPermission error: '+error);
-    })
+          
+          <!-- FAB BOTTOM -->
+          <div class="fab fab-extended fab-center-bottom ">
+            <a id="BtnFalar" href="#" class="btn-primary-outline">
+          <i class="mdi mdi-microphone"></i>
+          <!-- Element with FAB text  -->
+          <div class="fab-text">FALAR</div>
+        </a>
+      </div>
 
-//CLICOU NO BOTÃO FALAR
-$("#BtnFalar").on('click',function(){
-    let options = {
-        language: "pt-BR",          
-        showPopup: false,  
-        showPartial: true 
-      }
-      
-      //COMEÇOU A "ESCUTAR"
-      window.plugins.speechRecognition.startListening(
-        //SE SUCESSO
-        function(dados){
-            $.each(dados,function(index,texto){
-                //COLOCAR O QUE ELA ENTENDE NO P CHAMADO PERGUNTA
-                $("#pergunta").html("").append(texto);
-                //PEGAR O VALOR DO QUE ELA ENTENDEU
-                var pergunta = $("#pergunta").html().toLowerCase();
-                console.log('Ela entendeu: '+pergunta);
+          <!-- Scrollable page content -->
+          <div class="page-content  txt-primary text-align-center">
+            <a href="/memorias/" class="link">
+            <img style="max-width: 350px;" src="/www/img/giphy.gif" alt="" srcset="">
+          </a>
+            <div class="block txt-primary">
+              <p id="resposta"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Path to Framework7 Library Bundle JS-->
+    <script type="text/javascript" src="/www/js/lib/framework7-bundle.js"></script>
+    <!-- typedjs-->
+    <script type="text/javascript" src="/www/js/lib/typed.umd.js"></script>
+    <!--JQUERY 3.6.0-->
+    <script type="text/javascript" src="/www/js/lib/jquery-3.6.0.min.js"></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="js/router.js"></script>
+    <!--CORDOVA-->
+    <script type="text/javascript" src="cordova.js"></script>
+    
+    
 
-                //VERIFICAR SE TEM BANCO
-                if(temBanco){
-                    $.each(banco,function(index,item){
-                        //VERIFICAR SE A PERGUNTA ENTENDIDA É IGUAL P_FALADA
-                        if(pergunta == item.p_falada){
-                            falar(item.r_escrita,item.r_falada,false);
-                        }
-                    });
-                }
+     
+    <script>
+      var typed = new Typed('#resposta', {
+          strings: ['Isso é um teste de texto ^1000', ''],
+          typeSpeed: 40,
+          showCursor: false,
+          onComplete: function (self) {
+              toastBottom = app.toast.create({
+                  text: 'Fala concluída com sucesso!',
+                  closeTimeout: 2000,
+              });
+              toastBottom.open();
+          }
 
-                //VERIFICAR SE TEM COMANDO
-                $.each(comandos,function(index,item){
-                    //VERIFICAR SE A PERGUNTA ENTENDIDA É IGUAL P_FALADA
-                    if(pergunta == item.entrada){
-                        //SE TIVER COMANDO ESPECIAL
-                        if(item.especial){
-                            //EXECUTAR O COMANDO ESPECIAL
-                            item.especial();
-                        }else{
-                            //SE NÃO, APENAS FALAR NORMALMENTE
-                            falar(item.retorno_escrito,item.retorno_falado,item.rota);
-                        }
-                       
-                    }
-                });
-
-
-
-            })
-        }, 
-        //SE DER ERRO
-        function(erro){
-           app.dialog.alert('Houve um erro: '+erro); 
-        }, options)
-});
-
-function falar(r_escrita,r_falada,rota){
-    TTS.speak({
-        text: r_falada,
-        locale: 'pt-BR',
-        rate: 0.75
-    }, function () {
-        console.log('A assistente falou: '+r_escrita);
-        if(rota){
-            app.views.main.router.navigate(rota);
-        }
-    }, function (erro) {
-        app.dialog.alert('Houve um erro: '+erro);
-    });
-
-    //SE ELA FALAR ESCREVER NA TELA A RESPOSTA
-    var typed = new Typed('#resposta', {
-        strings: [r_escrita+'^1000', ''],
-        typeSpeed: 40,
-        showCursor: false,
-        onComplete: function (self) {
-            toastBottom = app.toast.create({
-                text: 'Fala concluída com sucesso!',
-                closeTimeout: 2000,
-            });
-            toastBottom.open();
-        }
-
-    });
-
-}
+      });
+  </script>
+  </body>
+</html>
